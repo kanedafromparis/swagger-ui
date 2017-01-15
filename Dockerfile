@@ -1,13 +1,13 @@
-FROM alpine:3.5
+#
+# Runs a static site using uhttpd as a non-root user
+#
+FROM        progrium/busybox
 
-MAINTAINER Roman Tarnavski
+RUN opkg-install uhttpd
 
-RUN apk add --update nginx
-RUN mkdir -p /run/nginx
-
-COPY nginx.conf /etc/nginx/
-ADD ./dist/ /usr/share/nginx/html
+USER default
+ADD . /www
 
 EXPOSE 8080
-
-CMD nginx -g 'daemon off;'
+CMD [""]
+ENTRYPOINT ["/usr/sbin/uhttpd", "-f", "-p", "8080", "-h", "/www"]
