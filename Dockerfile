@@ -11,3 +11,5 @@ ADD . /www
 EXPOSE 8080
 CMD [""]
 ENTRYPOINT ["/usr/sbin/uhttpd", "-f", "-p", "8080", "-h", "/www"]
+
+CMD exec nginx -g 'daemon off;'
